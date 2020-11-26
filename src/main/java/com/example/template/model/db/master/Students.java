@@ -34,6 +34,7 @@ public class Students implements Serializable {
     private String school;
     private String grade;
     private String status;
+    private String register_date;
     private String note;
 
     private String program;
@@ -45,7 +46,7 @@ public class Students implements Serializable {
     public Students() {
     }
 
-    public Students(long ref, String std_name, String std_surname, String birthday, String birthplace, String adress1, String saint, String phone1, String phone2, String mail, String school, String grade, String status, String note, String program, String profileType, Set<TestStudent> testStudents) {
+    public Students(long ref, String std_name, String std_surname, String birthday, String birthplace, String adress1, String saint, String phone1, String phone2, String mail, String school, String grade, String status, String register_date, String note, String program, String profileType, Set<TestStudent> testStudents) {
         this.ref = ref;
         this.std_name = std_name;
         this.std_surname = std_surname;
@@ -59,6 +60,7 @@ public class Students implements Serializable {
         this.school = school;
         this.grade = grade;
         this.status = status;
+        this.register_date = register_date;
         this.note = note;
         this.program = program;
         this.profileType = profileType;
@@ -199,5 +201,13 @@ public class Students implements Serializable {
 
     public void setTestStudents(Set<TestStudent> testStudents) {
         this.testStudents = testStudents;
+    }
+
+    public String getRegister_date() {
+        return register_date;
+    }
+
+    public void setRegister_date(String register_date) {
+        this.register_date = register_date;
     }
 }

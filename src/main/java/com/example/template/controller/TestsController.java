@@ -1,9 +1,9 @@
 package com.example.template.controller;
 
+import com.example.template.model.db.master.TestStudent;
 import com.example.template.model.db.master.Tests;
 import com.example.template.repositories.TestsRepository;
-import com.google.api.client.util.Lists;
-import org.aspectj.weaver.ast.Test;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/tests")
-public class TestsController extends AbstractController{
+public class TestsController {
     @Autowired
     TestsRepository testRepository;
 

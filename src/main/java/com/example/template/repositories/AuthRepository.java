@@ -4,6 +4,6 @@ import com.example.template.model.db.master.Auth;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 public interface AuthRepository extends CrudRepository<Auth, Long> {
 }

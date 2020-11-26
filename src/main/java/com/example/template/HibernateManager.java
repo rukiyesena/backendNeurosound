@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.exception.DataException;
-import org.mariadb.jdbc.MariaDbDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 
 import javax.security.auth.login.Configuration;
@@ -24,9 +23,9 @@ public class HibernateManager {
 
     public static MysqlDataSource createMysqlDataSource() throws SQLException {
         MysqlDataSource datasource = new MysqlDataSource();
-        datasource.setPassword("pass");
+        datasource.setPassword("r.s_ayran342");
         datasource.setUser("root");
-        datasource.setURL("jdbc:mysql://localhost:3306/deneme?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey");
+        datasource.setURL("jdbc:mysql://localhost:3306/neurosound?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey");
         return datasource;
     }
 

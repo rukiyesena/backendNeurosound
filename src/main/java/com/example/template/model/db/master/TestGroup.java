@@ -25,6 +25,9 @@ public class TestGroup implements Serializable {
         this.group_name = group_name;
     }
 
+    public TestGroup() {
+    }
+
     public long getRef() {
         return ref;
     }

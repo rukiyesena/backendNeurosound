@@ -4,6 +4,6 @@ import com.example.template.model.db.master.Students;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 public interface StudentsRepository extends CrudRepository<Students, Long> {
 }

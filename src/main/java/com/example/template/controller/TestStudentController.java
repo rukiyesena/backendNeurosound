@@ -1,6 +1,8 @@
 package com.example.template.controller;
 
+import com.example.template.model.db.master.Students;
 import com.example.template.model.db.master.TestStudent;
+import com.example.template.model.db.master.Tests;
 import com.example.template.repositories.StudentsRepository;
 import com.example.template.repositories.TestStudentRepository;
 import com.example.template.repositories.TestsRepository;
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("teststudent")
 public class TestStudentController {
     @Autowired
     TestStudentRepository testStudentRepository;
@@ -30,25 +32,21 @@ public class TestStudentController {
     @Autowired
     EntityManagerFactory emf;
 
- /*   @GetMapping("/join/cross")
-    public ResponseEntity<List<TestStudentObject>> getLeftCrossData() {
-        return new ResponseEntity<List<TestStudentObject>>(testStudentRepository.fetchDataCrossJoin(), HttpStatus.OK);
-    }*/
 
     @GetMapping(value = "/list")
     public List<TestStudent> listTestJoin(HttpSession httpSession){
         Iterable<TestStudent> sts = testStudentRepository.findAll();
         return Lists.newArrayList(sts);
     }
-/*    @PostMapping("/tests/{tests_ref}/student/{student_ref}/add")
+    @PostMapping("/tests/{tests_ref}/student/{student_ref}/add")
     public ResponseEntity<TestStudent> getById(@PathVariable (value = "tests_ref") Long tests_ref,
                                                @PathVariable (value = "student_ref") Long student_ref,
                                                TestStudent testStudent) {
-        Optional<TestStudent> optionalTests = testStudentRepository.findByTestsRef(tests_ref);
+        Optional<Tests> optionalTests = testsRepository.findById(tests_ref);
         if (!optionalTests.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
         }
-        Optional<TestStudent> optionalStudents = testStudentRepository.findByStudentsRef(student_ref);
+        Optional<Students> optionalStudents = studentsRepository.findById(student_ref);
         if (!optionalTests.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
         }
@@ -56,12 +54,15 @@ public class TestStudentController {
         testStudent.setStudents(optionalStudents.get());
 
         TestStudent savedTestStudent = testStudentRepository.save(testStudent);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedTestStudent.getRef()).toUri();
 
-        return ResponseEntity.created(location).body(savedTestStudent);
+
+        return  ResponseEntity.ok(savedTestStudent);
     }
-   */
+    @RequestMapping(value = "/delete",  method = RequestMethod.DELETE)
+    public void deleteStudent(HttpSession httpSession, TestStudent testStudent){
+        testStudentRepository.delete(testStudent);
+    }
+
     @GetMapping("/tests/{tests_ref}/test_student")
     public Optional<TestStudent> getAllTest(@PathVariable (value = "tests_ref") Long tests_ref) {
         return testStudentRepository.findByTestsRef(tests_ref);
@@ -84,9 +85,8 @@ public class TestStudentController {
         return ResponseEntity.ok(optionalTests.get());
     }
     @GetMapping("/tests/{tests_ref}/student/{student_ref}/filter")
-    public Page<TestStudent> filterAllTestAndStudent(@PathVariable (value = "tests_ref") Long tests_ref,
-                                                     @PathVariable (value = "student_ref") Long student_ref,
-                                                     Pageable pageable) {
-        return testStudentRepository.findByTestsRefAndStudentsRef(tests_ref, student_ref, pageable);
+    public List<TestStudent> filterAllTestAndStudent(@PathVariable (value = "tests_ref") Long tests_ref,
+                                                     @PathVariable (value = "student_ref") Long student_ref) {
+        return (List<TestStudent>) testStudentRepository.findByTestsRefAndStudentsRef(tests_ref, student_ref);
     }
 }

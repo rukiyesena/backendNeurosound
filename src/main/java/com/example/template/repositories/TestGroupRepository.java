@@ -5,6 +5,6 @@ import com.example.template.model.db.master.Tests;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 public interface TestGroupRepository extends CrudRepository<TestGroup, Long> {
 }

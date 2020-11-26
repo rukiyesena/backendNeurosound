@@ -1,7 +1,10 @@
 package com.example.template.model.db.master;
 
 import com.example.template.model.db.RefObject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "tests")
 public class Tests  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,22 +20,28 @@ public class Tests  implements Serializable {
 
     private String test_name;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "tests")
-    @JsonIgnoreProperties("tests")
-    private Set<Student> students = new HashSet<Student>();
+    @OneToMany(mappedBy = "tests", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<TestStudent> testStudents = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonIgnore
+    @JoinColumn(name="test_group")
+    @Fetch(FetchMode.JOIN)
+    private TestGroup testGroup;
 
     public Tests() {
     }
 
-    public Tests(Long ref, String test_name, Set<Student> students) {
+    public Tests(Long ref, String test_name, Set<Students> students) {
         this.ref = ref;
         this.test_name = test_name;
-        this.students = students;
+    }
+
+    public Tests(Long ref, String test_name, Set<TestStudent> testStudents, TestGroup testGroup) {
+        this.ref = ref;
+        this.test_name = test_name;
+        this.testStudents = testStudents;
+        this.testGroup = testGroup;
     }
 
     public Long getRef() {
@@ -51,11 +60,19 @@ public class Tests  implements Serializable {
         this.test_name = test_name;
     }
 
-    public Set<Student> getStudents() {
-        return students;
+    public TestGroup getTestGroup() {
+        return testGroup;
     }
 
-    public void setStudents(Set<Student> students) {
-        this.students = students;
+    public void setTestGroup(TestGroup testGroup) {
+        this.testGroup = testGroup;
+    }
+
+    public Set<TestStudent> getTestStudents() {
+        return testStudents;
+    }
+
+    public void setTestStudents(Set<TestStudent> testStudents) {
+        this.testStudents = testStudents;
     }
 }

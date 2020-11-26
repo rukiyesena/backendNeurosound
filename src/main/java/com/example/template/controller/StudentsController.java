@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/student")
-public class StudentsController extends AbstractController{
+public class StudentsController {
     @Autowired
     StudentsRepository studentsRepository;
 
