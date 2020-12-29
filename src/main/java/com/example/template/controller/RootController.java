@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
-public class RootController  {
+public class RootController extends AbstractController {
 
     @GetMapping
     public String index() {
