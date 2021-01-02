@@ -29,6 +29,9 @@ public class Tests  implements Serializable {
     @Fetch(FetchMode.JOIN)
     private TestGroup testGroup;
 
+    @OneToMany(mappedBy = "tests", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Advice> advice = new HashSet<>();
+
     public Tests() {
     }
 
@@ -42,6 +45,22 @@ public class Tests  implements Serializable {
         this.test_name = test_name;
         this.testStudents = testStudents;
         this.testGroup = testGroup;
+    }
+
+    public Tests(Long ref, String test_name, Set<TestStudent> testStudents, TestGroup testGroup, Set<Advice> advice) {
+        this.ref = ref;
+        this.test_name = test_name;
+        this.testStudents = testStudents;
+        this.testGroup = testGroup;
+        this.advice = advice;
+    }
+
+    public Set<Advice> getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(Set<Advice> advice) {
+        this.advice = advice;
     }
 
     public Long getRef() {
@@ -75,4 +94,5 @@ public class Tests  implements Serializable {
     public void setTestStudents(Set<TestStudent> testStudents) {
         this.testStudents = testStudents;
     }
+
 }

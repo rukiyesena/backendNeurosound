@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AuthRepository extends CrudRepository<Auth, Long> {
+    Auth findByName(String name);
+    Auth findByCode(String code);
 }

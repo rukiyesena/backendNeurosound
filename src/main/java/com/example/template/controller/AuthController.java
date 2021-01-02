@@ -4,17 +4,26 @@ import com.example.template.model.db.master.Auth;
 import com.example.template.repositories.AuthRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+/*
+    @GetMapping("/login")
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
+        return "login";
+    }*/
 
     @Autowired
     AuthRepository authRepository;
@@ -34,4 +43,7 @@ public class AuthController {
         dao.insertUpdateTransactional(auth);
     }
     */
+
+
+
 }

@@ -47,27 +47,44 @@ public class TestStudent implements Serializable {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("students_ref")
     private Students students;
+
+    @OneToMany(mappedBy = "testStudent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<SubTest> subTests = new HashSet<>();
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonProperty("start")
     private Date test_date;
-    private String result;
+
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonProperty("end")
     private Date end_date;
     private String title;
+    private String status;
+
 
 
     public TestStudent() {
     }
 
-    public TestStudent(Long ref, Tests tests, Students students, Date test_date, String result, Date end_date, String title) {
+    public TestStudent(Long ref, Tests tests, Students students, Date test_date, Date end_date, String title) {
         this.ref = ref;
         this.tests = tests;
         this.students = students;
         this.test_date = test_date;
-        this.result = result;
         this.end_date = end_date;
         this.title = title;
+    }
+
+    public TestStudent(Long ref, Tests tests, Students students, Set<SubTest> subTests, Date test_date, Date end_date, String title, String status) {
+        this.ref = ref;
+        this.tests = tests;
+        this.students = students;
+        this.subTests = subTests;
+        this.test_date = test_date;
+        this.end_date = end_date;
+        this.title = title;
+        this.status = status;
     }
 
     public Tests getTests() {
@@ -102,12 +119,12 @@ public class TestStudent implements Serializable {
         this.end_date = end_date;
     }
 
-    public String getResult() {
-        return result;
+    public Set<SubTest> getSubTests() {
+        return subTests;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setSubTests(Set<SubTest> subTests) {
+        this.subTests = subTests;
     }
 
     public String getTitle() {
@@ -116,5 +133,13 @@ public class TestStudent implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
