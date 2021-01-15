@@ -1,105 +1,16 @@
 package com.example.template.controller;
 
 import com.example.template.App;
-import com.example.template.ExceptionThrower;
-import com.example.template.model.db.master.Auth;
-import com.example.template.model.db.master.Students;
-import com.example.template.repositories.AuthRepository;
-import com.example.template.repositories.StudentsRepository;
-import com.example.template.session.SessionAdapter;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import java.util.Optional;
+@RestController
+@RequestMapping("/")
+public class RootController extends AbstractController {
 
-@Controller
-public class RootController  {
-
-    @Autowired
-    AuthRepository authRepository;
-
-    @Autowired
-    StudentsRepository studentsRepository;
-
-    private final Logger logger = LoggerFactory.getLogger(RootController.class);
-
-    @GetMapping("/")
+    @GetMapping
     public String index() {
-        return "index";
+        return App.APP_NAME + " " + App.VERSION;
     }
-    @PostMapping(value = "/login",params = {"name","password"})
-    public String loginWithName(HttpSession httpSession,
-                                 @RequestParam String title,
-                                 @RequestParam String password) {
-        Auth user = authRepository.findByName(title);
-        if (!StringUtils.equals(user.getPassword(), password)) {
-            ExceptionThrower.forbidden();
-        }
-        new SessionAdapter(httpSession).setUser(user);
-        return httpSession.getId();
-    }
-    @GetMapping("/main")
-    public String main() {
-        return "main"; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/student_add")
-    public String student_add() {
-        return "student_add"; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/student_add?id={id}")
-    public String student_put(@PathVariable(value="id") Long student_ref) {
-
-        return "student_add?id=" + student_ref; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/student_list")
-    public String student_list() {
-        return "student_list"; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/student_profile")
-    public String student_profile() {
-        return "student_profile"; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/test_profile")
-    public String test_profile() {
-        return "test_profile"; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/test_profile?id={id}")
-    public String test_add(@PathVariable(value="id") Long student_ref) {
-        return "test_profile?id="+student_ref; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/test_profile?id={id}&ref={ref}")
-    public String test_son(@PathVariable(value="id") Long student_ref,
-                           @PathVariable(value="ref") Long test_ref) {
-        return "test_profile?id="+student_ref+"&ref="+test_ref; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-    @GetMapping("/calendar")
-    public String calendar() {
-        return "calendar"; // this returns the template name to be rendered from resources/templates. You don't need to provide the extension.
-    }
-/*
-    @PostMapping(value = "/login",params = {"name","code","password"})
-    public String loginWithPhone(HttpSession httpSession,
-                                 @RequestParam String name,
-                                 @RequestParam String code,
-                                 @RequestParam String password) {
-
-        Auth user = authRepository.findByCode(code);
-        user = authRepository.findByName(name);
-        if (!StringUtils.equals(user.getPassword(), password)) {
-            ExceptionThrower.forbidden();
-        }
-
-        new SessionAdapter(httpSession).setUser(user);
-        return httpSession.getId();
-    }
-
-*/
 
 
 /*

@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.exception.DataException;
+import org.mariadb.jdbc.MariaDbDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 
 import javax.security.auth.login.Configuration;
@@ -17,15 +18,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class HibernateManager {
-  /*  public static final String PACKAGES_ADDRESSES = "com.example.template.model.db.addresses";
+    public static final String PACKAGES_ADDRESSES = "com.example.template.model.db.addresses";
     public static final String PACKAGES_MASTER = "com.example.template.model.db.master";
 
 
     public static MysqlDataSource createMysqlDataSource() throws SQLException {
         MysqlDataSource datasource = new MysqlDataSource();
-        datasource.setPassword("r.s_ayran342");
+        datasource.setPassword("pass");
         datasource.setUser("root");
-        datasource.setURL("jdbc:mysql://localhost:3306/neurosound?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey");
+        datasource.setURL("jdbc:mysql://localhost:3306/deneme?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey");
         return datasource;
     }
 
@@ -47,5 +48,5 @@ public class HibernateManager {
 
         return sessionFactoryBuilder;
     }
-*/
+
 }
